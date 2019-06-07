@@ -1,0 +1,89 @@
+<% include ../partials/header %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<p></p>
+			<div class="list-group">
+				
+				<% if(currentUser && blog.author.id.equals(currentUser._id)){ %>
+					<a class="list-group-item list-group-item-action" href="/blogs/<%= blog._id %>/edit">Edit Blog</a>
+				
+					<form method="POST" action="/blogs/<%= blog._id %>?_method=DELETE">
+						<button class="list-group-item list-group-item-action">Delete Blog</button>
+					</form>
+				<% } else{ %>
+
+					<li class="list-group-item list-group-item-action disabled">Edit Blog</li>
+				
+					<li class="list-group-item list-group-item-action disabled">Delete Blog</li>
+					
+
+				<% } %>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<p></p>
+			<div class="card">
+				<img class="card-img-top" src="<%= blog.image %>" alt="Card image cap">
+				<div class="card-body">
+					<h8 class="float-right"><%= blog.created.toDateString() %></h8>
+					<h4 class="card-title"><%= blog.title %></h4>
+					<p class="card-text"><%- blog.body %></p>
+					<p><em>Created by <%= blog.author.username %></em></p>
+				</div>
+			</div>
+			<div class="card bg-light" style="margin-top: 5px;">
+				<!--<div class="text-right card-header">
+					<a class="btn btn-success" href="/blogs/<%= blog._id %>/comments/new">Leave a Comment</a>
+				</div>-->
+
+				<nav class="navbar navbar-light bg-light">
+				  <form class="form-inline ml-auto" action="/blogs/<%= blog._id %>/comments" method="POST">
+				    <input class="form-control mr-sm-2" type="text" name="comment[text]" placeholder="Your comment here.." aria-label="Search">
+				    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Leave a Comment</button>
+				  </form>
+				</nav>
+
+				<% blog.comments.forEach(function(comment){%>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+							<h5 class="card-title"><%= comment.author.username %></h5>
+							<span class="float-right"></span>
+							<p class="card-text">
+								<%= comment.text %>
+							</p>
+							<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+								<a href="/blogs/<%= blog._id %>/comments/<%= comment._id %>/edit" class="btn btn-sm btn-info">Edit</a>
+								<form action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" style="display: inline">
+									<input type="submit" class="btn btn-sm btn-danger" value="Delete">
+								</form>
+							<% } %>
+							<hr>
+						</div>
+					</div>
+				</div>
+				<% }) %>
+
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
+	
+			
+	
+			
+
+			
+	
+	
+	
+
+	
+
+	
+		
+	
+<% include ../partials/footer %>

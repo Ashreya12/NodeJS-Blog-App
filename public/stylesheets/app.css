@@ -1,0 +1,25 @@
+#ic{
+	height: 30px;
+	width: 50px;
+	padding-right: 10px;
+}
+
+.container.main{
+	margin-top: 7.0em;
+}
+
+#delete{
+	display: inline;
+}
+
+#indexcnt{
+	margin-top: 20px;
+}
+
+#date{
+	font-size: 0.7em;
+}
+
+.header{
+	font-weight: bold;
+}
